@@ -1,6 +1,6 @@
 package models
 
-import "vanio/db"
+import "github.com/beltrameva/db"
 
 type Produto struct {
 	id         int

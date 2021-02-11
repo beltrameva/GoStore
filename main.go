@@ -3,7 +3,7 @@ package main
 import (
 	"html/template"
 	"net/http"
-	"github.com/Vanio/models"
+	"github.com/beltrameva/models"
 
 	_ "github.com/lib/pq"
 )
