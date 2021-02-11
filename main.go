@@ -3,8 +3,8 @@ package main
 import (
 	"html/template"
 	"net/http"
-	"github.com/beltrameva/models"
-
+	"github.com/beltrameva/Vanio/models"
+	
 	_ "github.com/lib/pq"
 )
 
@@ -20,5 +20,5 @@ func main() {
 
 func index(w http.ResponseWriter, r *http.Request) 
 	todosProdutos := models.BuscaTodosProdutos()
-	temp.ExecuteTemplate(w, "Index", produtos)
+	temp.ExecuteTemplate(w, "Index", todosProdutos)
 }
