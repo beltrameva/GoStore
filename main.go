@@ -1,8 +1,8 @@
 package main
 
 import (
+	"GoStore/routes"
 	"net/http"
-	"vanio/routes"
 )
 
 func main() {

@@ -1,8 +1,8 @@
 package routes
 
 import (
+	"GoStore/controllers"
 	"net/http"
-	"vanio/controllers"
 )
 
 func CarregaRotas() {

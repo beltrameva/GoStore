@@ -1,6 +1,6 @@
 package models
 
-import "vanio/db"
+import "GoStore/db"
 
 type Produto struct {
 	id         int

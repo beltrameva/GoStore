@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"vanio/models"
+	"GoStore/models"
 )
 
 var temp = template.Must(template.ParseGlob("templates/*.html"))
