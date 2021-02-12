@@ -2,9 +2,11 @@ package routes
 
 import (
 	"net/http"
-	"vanio/controlers"
+	"vanio/controllers"
 )
 
 func CarregaRotas() {
-	http.HandleFunc("/", controlers.Index)
+	http.HandleFunc("/", controllers.Index)
+	http.HandleFunc("/new", controllers.New)
+	http.HandleFunc("/insert", controllers.Insert)
 }

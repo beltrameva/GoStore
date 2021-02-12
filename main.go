@@ -2,11 +2,10 @@ package main
 
 import (
 	"net/http"
-
-	"github.com/beltrameva/Vanio/routes"
+	"vanio/routes"
 )
 
 func main() {
-	routes.CarregaRotas
+	routes.CarregaRotas()
 	http.ListenAndServe(":8000", nil)
 }
