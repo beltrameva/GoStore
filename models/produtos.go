@@ -3,7 +3,7 @@ package models
 import "GoStore/db"
 
 type Produto struct {
-	id         int
+	Id         int
 	Nome       string
 	Descricao  string
 	Preco      float64
@@ -13,7 +13,7 @@ type Produto struct {
 func BuscaTodosProdutos() []Produto {
 	db := db.ConectaBancoDeDados()
 
-	selectDeTodosProdutos, err := db.Query("select * from produtos")
+	selectDeTodosProdutos, err := db.Query("select * from produtos order by nome")
 
 	if err != nil {
 		panic(err.Error())
@@ -33,7 +33,7 @@ func BuscaTodosProdutos() []Produto {
 			panic(err.Error())
 		}
 
-		p.id = id
+		p.Id = id
 		p.Nome = nome
 		p.Descricao = descricao
 		p.Preco = preco
@@ -67,5 +67,49 @@ func DeletaProduto(id string) {
 	}
 
 	deletaDadosNoBanco.Exec(id)
+	defer db.Close()
+}
+
+func EditaProduto(id string) Produto {
+	db := db.ConectaBancoDeDados()
+
+	produto, err := db.Query("select * from produtos where id=" + id)
+	if err != nil {
+		panic(err.Error())
+	}
+
+	produtoParaAtualizar := Produto{}
+
+	for produto.Next() {
+		var id, quantidade int
+		var nome, descricao string
+		var preco float64
+
+		err = produto.Scan(&id, &nome, &descricao, &preco, &quantidade)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		produtoParaAtualizar.Id = id
+		produtoParaAtualizar.Nome = nome
+		produtoParaAtualizar.Descricao = descricao
+		produtoParaAtualizar.Preco = preco
+		produtoParaAtualizar.Quantidade = quantidade
+	}
+
+	defer db.Close()
+
+	return produtoParaAtualizar
+}
+
+func AtualizaProduto(id, quantidade int, nome, descricao string, preco float64) {
+	db := db.ConectaBancoDeDados()
+
+	AtualizaProduto, err := db.Prepare("update produtos set nome = $1, descricao = $2, preco = $3, quantidade = $4 where id = $5")
+	if err != nil {
+		panic(err.Error())
+	}
+
+	AtualizaProduto.Exec(nome, descricao, preco, quantidade, id)
 	defer db.Close()
 }
